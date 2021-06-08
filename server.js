@@ -8,11 +8,6 @@ const {
 let app = express()
 let http = require('http').Server(app)
 let io = require('socket.io')(http)
-//const cors = require('cors')
-
-//require('dotenv').config()
-//require('./database')
-//app.use(cors())
 
 app.use(express.static(__dirname))
 app.use(express.json());
@@ -21,21 +16,26 @@ app.use(express.urlencoded({
 }))
 
 
-var dbUrl = 'mongodb+srv://sr_sebastian:Sebastiang1103.@cluster0.bg8qj.mongodb.net/chatroom?retryWrites=true&w=majority'
+//var dbUrl = 'mongodb+srv://sr_sebastian:Sebastiang1103.@cluster0.bg8qj.mongodb.net/chatroom?retryWrites=true&w=majority'
 
-var Message = mongoose.model('chatroom', new Schema ({
+//var Message = mongoose.model('Message', {
 
-    name: String,
-    message: String
+//    name: String,
+//    message: String
 
-}))
+// })
+
+var messages = [
+{name: "Jhon", message: "Hola"}
+
+]
 
 
 app.get('/messages', (req, res) => {
-Message.find({}, (err, messages) => {
+//Message.find({}, (err, messages) => {
 
     res.send(messages)
-})
+//})
     
 
 })
@@ -43,17 +43,11 @@ Message.find({}, (err, messages) => {
 
 app.post('/messages', (req, res) => {
 
-    var message = new Message(req.body)
-    message.save((err) => {
-        if (err)
-            sendStatus(500)
-
-        messages.push(req.body)
+   messages.push(req.body)
+   
         io.emit('message', req.body)
         res.sendStatus(200)
-    })
-
-
+   
 })
 
 io.on('connection', (socket) => {
@@ -63,10 +57,10 @@ io.on('connection', (socket) => {
 
 })
 
-mongoose.connect(dbUrl, ()=> {
-    console.log("Conectado")
+//mongoose.connect(dbUrl, ()=> {
+//    console.log("Conectado")
 
-})
+//})
 
 
 

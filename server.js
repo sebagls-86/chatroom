@@ -16,25 +16,12 @@ require('dotenv').config()
 require('./database')
 app.use(cors())
 
+app.use('', require('./routerChats'))
+
 app.use(express.static(__dirname))
 app.use(express.json());
-app.use(express.urlencoded({
-    extended: true
-}))
+app.use(express.urlencoded({ extended: true} ));
 
-var messages = [
-{name: "John", message: "Hello"}
-
-
-]
-
-const router = express.Router()
-
-router.route('/messages')
-.post(chatController.loadChats)
-.get(chatController.listChats)
-
-module.exports=router
 
 
 io.on('connection', (socket) => {

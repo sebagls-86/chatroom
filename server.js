@@ -16,38 +16,28 @@ app.use(express.urlencoded({
 }))
 
 
-//var dbUrl = 'mongodb+srv://sr_sebastian:Sebastiang1103.@cluster0.bg8qj.mongodb.net/chatroom?retryWrites=true&w=majority'
-
-//var Message = mongoose.model('Message', {
-
-//    name: String,
-//    message: String
-
-// })
-
-var messages = [
-{name: "Jhon", message: "Hola"}
+var messages = [{
+        name: "Jhon",
+        message: "Hola"
+    }
 
 ]
 
 
 app.get('/messages', (req, res) => {
-//Message.find({}, (err, messages) => {
 
     res.send(messages)
-//})
-    
 
 })
 
 
 app.post('/messages', (req, res) => {
 
-   messages.push(req.body)
-   
-        io.emit('message', req.body)
-        res.sendStatus(200)
-   
+    messages.push(req.body)
+
+    io.emit('message', req.body)
+    res.sendStatus(200)
+
 })
 
 io.on('connection', (socket) => {
@@ -56,12 +46,6 @@ io.on('connection', (socket) => {
 
 
 })
-
-//mongoose.connect(dbUrl, ()=> {
-//    console.log("Conectado")
-
-//})
-
 
 
 let server = http.listen(3010, () => {

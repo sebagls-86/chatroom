@@ -23,12 +23,12 @@ app.use(express.urlencoded({
 
 var dbUrl = 'mongodb+srv://sr_sebastian:Sebastiang1103.@cluster0.bg8qj.mongodb.net/chatroom?retryWrites=true&w=majority'
 
-var Message = mongoose.model('Message', {
+var Message = mongoose.model('chatroom', new Schema ({
 
     name: String,
     message: String
 
-})
+}))
 
 
 app.get('/messages', (req, res) => {
@@ -63,7 +63,10 @@ io.on('connection', (socket) => {
 
 })
 
-mongoose.connect(dbUrl)
+mongoose.connect(dbUrl, ()=> {
+    console.log("Conectado")
+
+})
 
 
 

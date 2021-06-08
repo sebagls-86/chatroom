@@ -1,8 +1,4 @@
-const {
-    Socket
-} = require("dgram")
 let express = require("express")
-
 const db = require('mongoose');
 let app = express()
 let http = require('http').Server(app)

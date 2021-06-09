@@ -49,21 +49,34 @@
                     message: $("#message").val()
                 }
                 postMessage(message)
+               // getMessages()
             })
-            getMessages()
+
+            
+           getMessages()
         })
 
         socket.on('message', addMessage)
+        socket.on('message', getMessages)
+
 
         function addMessage(message) {
+
+            console.log("POST EN EL INDEX")
             $('#messages').append(`<h4> ${message.name} </h4> <p> ${message.message} </p>`)
         }
 
         function getMessages() {
 
-            $.get('http://localhost:3010/messages', (data) => {
+            console.log("GET EN EL INDEX")
+            
+
+            $.get('http://localhost:3010/chat/messages', (data) => {
+
+                console.log("DATA", data)
 
                 data.forEach(addMessage);
+          
 
                 console.log("esta es la data", data)
 
@@ -73,7 +86,7 @@
 
         function postMessage(message) {
 
-            $.post('http://localhost:3010/messages', message)
+            $.post('http://localhost:3010/chat/messages', message)
 
         }
     </script>

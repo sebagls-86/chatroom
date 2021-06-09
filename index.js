@@ -2,17 +2,17 @@ const {
     Socket
 } = require("dgram")
 let express = require("express")
-const {
-    mongoose
-} = require("mongoose")
+
+const mongoose = require("mongoose")
 let app = express()
 let http = require('http').Server(app)
 let io = require('socket.io')(http)
-//const cors = require('cors')
+const cors = require('cors')
 
-//require('dotenv').config()
-//require('./database')
-//app.use(cors())
+require('dotenv').config()
+require('./database')
+app.use(cors())
+
 
 app.use(express.static(__dirname))
 app.use(express.json());
@@ -21,9 +21,11 @@ app.use(express.urlencoded({
 }))
 
 
-var dbUrl = 'mongodb+srv://sr_sebastian:Sebastiang1103.@cluster0.bg8qj.mongodb.net/chatroom?retryWrites=true&w=majority'
+var messages = [{}]
 
-var Message = mongoose.model('chatroom', new Schema ({
+//var dbUrl = 'mongodb+srv://sr_sebastian:Sebastiang1103.@cluster0.bg8qj.mongodb.net/chatroom?retryWrites=true&w=majority'
+
+var Message = mongoose.model('chatroom', new mongoose.Schema ({
 
     name: String,
     message: String
@@ -32,9 +34,9 @@ var Message = mongoose.model('chatroom', new Schema ({
 
 
 app.get('/messages', (req, res) => {
-Message.find({}, (err, messages) => {
+Message.find({}, (err, message) => {
 
-    res.send(messages)
+    res.send(message)
 })
     
 
@@ -63,10 +65,10 @@ io.on('connection', (socket) => {
 
 })
 
-mongoose.connect(dbUrl, ()=> {
-    console.log("Conectado")
+//mongoose.connect(dbUrl, ()=> {
+//    console.log("Conectado")
 
-})
+//})
 
 
 

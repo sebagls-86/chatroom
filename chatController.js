@@ -1,6 +1,5 @@
 const Chats = require('./chatModel')
 
-
 require('./server')
 let express = require("express")
 let app = express()

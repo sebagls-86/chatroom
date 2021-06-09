@@ -13,6 +13,10 @@ app.use(express.static(__dirname))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true} ));
 
+
+var messages = [{ name: "Nombre", message: "Mensaje" } ]
+
+
 io.on('connection', (socket) => {
 
     console.log('user connected')

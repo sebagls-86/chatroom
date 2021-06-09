@@ -9,27 +9,26 @@ app.use(express.static(__dirname))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true} ));
 
+var messages = [{ name: "Nombre", message: "Mensaje" } ]
+
 const chatController = {
    
     loadChats: async (req, res) => {
-
-        var messages = [{ name: "Nombre", message: "Mensaje" } ]
-
-        var message = new Chats(req.body)
-        message.save
-        messages.push(req.body)
-    
-        io.emit('message', req.body)
-        res.sendStatus(200)
         
+        var message = new Chats(req.body)
+        await message.save((err)=> {
+
+            messages.push(req.body)
+          
+            io.emit('message', req.body)
+            res.sendStatus(200)
+
+        })
     },
     listChats: async (req, res) => {
         
-        var messages = [{ name: "Nombre", message: "Mensaje"} ]
-        res.send(messages)
-         
-     },
-
+          res.send(messages)
+    },
 }
 
 module.exports = chatController

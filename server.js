@@ -16,7 +16,6 @@ app.use(express.urlencoded({ extended: true} ));
 
 router(app)
 
-//var messages = [{ name: "Nombre", message: "Mensaje" } ]
 
 
 io.on('connection', (socket) => {

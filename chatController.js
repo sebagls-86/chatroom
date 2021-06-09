@@ -11,28 +11,35 @@ app.use(express.urlencoded({ extended: true} ));
 
 var messages = [{ name: "Nombre", message: "Mensaje" } ]
 
-const chatController = {
-   
-    loadChats: async (req, res) => {
-        
-        var message = new Chats(req.body)
-        
-        console.log(message, "tiene algo")
-        
-        await message.save((err)=> {
-            
-            messages.push(req.body)
-          
-            io.emit('message', req.body)
-            res.sendStatus(200)
 
-        })
-    },
-    listChats: async (req, res) => {
 
-        console.log(messages, "mensajes")
-          res.send(messages)
-    },
+const addChat = async (message) => {
+        
+    let newMessage = new Chats(message)
+    
+    await newMessage.save((err)=> {
+        
+        messages.push(newMessage)
+      
+        console.log("pushea", messages)
+
+        io.emit('message', newMessage)
+        return "ok"
+
+    })
+}
+    
+
+
+const listChats = async () => {
+
+        console.log("ESTOY ACA")
+
+
+        const messages = await Chats.find()
+        console.log("mensajes", messages)
+          return messages
 }
 
-module.exports = chatController
+
+module.exports = {listChats, addChat}

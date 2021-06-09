@@ -8,16 +8,22 @@ const router = express.Router()
 
 router.get('/messages', function (req, res) {
     
-    chatController.listChats
-
     console.log("get")
+
+    chatController.listChats().then((messages) => {
+
+        res.send(messages)
+    })
+
+    
 })
 
 
 router.post('/messages', function (req, res) {
     
     console.log("post")
-    chatController.loadChats
+    chatController.addChat(req.body)
+    
 })
 
 

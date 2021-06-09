@@ -1,12 +1,6 @@
-const chatController = require('./chatController')
 
-const {
-    Socket
-} = require("dgram")
 let express = require("express")
-const {
-    mongoose
-} = require("mongoose")
+
 let app = express()
 let http = require('http').Server(app)
 let io = require('socket.io')(http)
@@ -22,6 +16,13 @@ app.use(express.static(__dirname))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true} ));
 
+var messages = [{
+    name: "Jhon",
+    message: "Hola"
+}
+
+]
+
 
 
 io.on('connection', (socket) => {
@@ -32,3 +33,6 @@ io.on('connection', (socket) => {
 let server = http.listen(3010, () => {
     console.log("Server listening on port ", server.address().port)
 })
+
+
+

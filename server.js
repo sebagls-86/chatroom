@@ -14,10 +14,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true} ));
 
 
-var messages = [{ name: "Nombre", message: "Mensaje" } ]
+//var messages = [{ name: "Nombre", message: "Mensaje" } ]
 
 
-//app.use('', require('./routerChats'))
+app.use('', require('./routerChats'))
 
 
 io.on('connection', (socket) => {

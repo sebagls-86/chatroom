@@ -34,9 +34,8 @@ var Message = mongoose.model('chatroom', new mongoose.Schema ({
 app.get('/messages', (req, res) => {
 Message.find({}, (err, message) => {
 
-    res.send(message)
+   res.send(message)
 })
-    
 
 })
 
@@ -50,7 +49,7 @@ app.post('/messages', (req, res) => {
 
         messages.push(req.body)
         io.emit('message', req.body)
-        res.sendStatus(200)
+        
     })
 
 

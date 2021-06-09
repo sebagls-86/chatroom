@@ -9,9 +9,7 @@ app.use(express.static(__dirname))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true} ));
 
-var messages = [{ name: "Nombre", message: "Mensaje" } ]
-
-
+var messages = [{}]
 
 const addChat = async (message) => {
         

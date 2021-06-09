@@ -53,10 +53,12 @@
             })
 
             
-            getMessages()
+           getMessages()
         })
 
         socket.on('message', addMessage)
+        socket.on('message', getMessages)
+
 
         function addMessage(message) {
 
@@ -67,7 +69,6 @@
         function getMessages() {
 
             console.log("GET EN EL INDEX")
-
             
 
             $.get('http://localhost:3010/chat/messages', (data) => {

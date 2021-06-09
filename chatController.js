@@ -1,13 +1,8 @@
 const Chats = require('./chatModel')
 
 require('./server')
-let express = require("express")
-let app = express()
-let http = require('http').Server(app)
-let io = require('socket.io')(http)
-app.use(express.static(__dirname))
-app.use(express.json());
-app.use(express.urlencoded({ extended: true} ));
+
+const {socket} = require('./socket')
 
 var messages = [{}]
 
@@ -21,14 +16,12 @@ const addChat = async (message) => {
       
         console.log("pushea", messages)
 
-        io.emit('message', newMessage)
+        socket.io.emit('message', newMessage)
         return "ok"
 
     })
 }
     
-
-
 const listChats = async () => {
 
         console.log("ESTOY ACA")

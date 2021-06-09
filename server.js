@@ -2,7 +2,7 @@
 let express = require("express")
 let app = express()
 let http = require('http').Server(app)
-let io = require('socket.io')(http)
+const socket = require('./socket')
 const cors = require('cors')
 
 require('dotenv').config()
@@ -14,14 +14,10 @@ app.use(express.static(__dirname))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true} ));
 
+socket.connect(http)
 router(app)
 
 
-
-io.on('connection', (socket) => {
-
-    console.log('user connected')
-})
 
 let server = http.listen(3010, () => {
     console.log("Server listening on port ", server.address().port)

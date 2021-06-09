@@ -7,17 +7,16 @@ const cors = require('cors')
 
 require('dotenv').config()
 require('./database')
+const router = require('./routes')
 app.use(cors())
-app.use('', require('./routerChats'))
+
 app.use(express.static(__dirname))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true} ));
 
+router(app)
 
 //var messages = [{ name: "Nombre", message: "Mensaje" } ]
-
-
-app.use('', require('./routerChats'))
 
 
 io.on('connection', (socket) => {

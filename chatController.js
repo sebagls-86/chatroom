@@ -16,8 +16,11 @@ const chatController = {
     loadChats: async (req, res) => {
         
         var message = new Chats(req.body)
+        
+        console.log(message, "tiene algo")
+        
         await message.save((err)=> {
-
+            
             messages.push(req.body)
           
             io.emit('message', req.body)
@@ -26,7 +29,8 @@ const chatController = {
         })
     },
     listChats: async (req, res) => {
-        
+
+        console.log(messages, "mensajes")
           res.send(messages)
     },
 }

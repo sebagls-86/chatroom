@@ -4,8 +4,22 @@ const chatController = require('./chatController')
 
 const router = express.Router()
 
-router.route('/messages')
-.post(chatController.loadChats)
-.get(chatController.listChats)
+
+
+router.get('/messages', function (req, res) {
+    
+    chatController.listChats
+
+    console.log("get")
+})
+
+
+router.post('/messages', function (req, res) {
+    
+    console.log("post")
+    chatController.loadChats
+})
+
+
 
 module.exports=router
